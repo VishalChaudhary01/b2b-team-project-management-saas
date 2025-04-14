@@ -21,8 +21,10 @@
       "@controllers/*": ["src/controllers/*"],
       "@enums/*": ["src/enums/*"],
       "@middlewares/*": ["src/middlewares/*"],
+      "@models/*": ["src/models/*"],
       "@routes/*": ["src/routes/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@validators/*": ["src/validators/*"]
     }
   },
   "include": ["src/**/*.ts", "@types"],
