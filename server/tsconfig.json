@@ -15,8 +15,16 @@
     "moduleResolution": "Node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {}
+    "baseUrl": ".",
+    "paths": {
+      "@config/*": ["src/config/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@enums/*": ["src/enums/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@routes/*": ["src/routes/*"],
+      "@utils/*": ["src/utils/*"]
+    }
   },
   "include": ["src/**/*.ts", "@types"],
-  "exclude": ["node_module", "test", "dist", "**/*.spec.ts"]
+  "exclude": ["node_modules", "test", "dist", "**/*.spec.ts"]
 }

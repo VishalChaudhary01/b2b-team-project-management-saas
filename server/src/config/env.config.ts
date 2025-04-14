@@ -1,4 +1,4 @@
-import { getEnv } from '../utils/get-env';
+import { getEnv } from '@utils/get-env';
 
 type EnvConfig = ReturnType<typeof envConfig>;
 

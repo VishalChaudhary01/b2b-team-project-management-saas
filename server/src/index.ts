@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
-import { config } from './config/env.config';
+import { config } from '@config/env.config';
+import { errorHandler } from '@middlewares/errorHandler';
 
 const app = express();
 
@@ -9,6 +10,8 @@ app.get(`${config.BASE_PATH}`, (_req: Request, res: Response) => {
     message: 'Healthy server',
   });
 });
+
+app.use(errorHandler);
 
 app.listen(config.PORT, () =>
   console.log(

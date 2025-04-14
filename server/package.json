@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "npm run build && node dist/index.js",
-    "dev": "ts-node-dev --respawn src/index.ts"
+    "dev": "ts-node-dev --respawn --require tsconfig-paths/register src/index.ts"
   },
   "keywords": [],
   "author": "Vishal Chaudhary",
@@ -30,6 +30,7 @@
     "@types/node": "^22.10.2",
     "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2"
   }
 }
