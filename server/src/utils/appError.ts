@@ -27,7 +27,7 @@ export class HttpException extends AppError {
   }
 }
 
-export class InternalServerError extends AppError {
+export class InternalServerException extends AppError {
   constructor(message: 'Internal Server Error', errorCode?: ErrorCodeEnumType) {
     super(
       message,
