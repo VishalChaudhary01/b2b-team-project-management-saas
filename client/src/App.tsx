@@ -1,10 +1,7 @@
-import { Button } from './components/ui/button';
+import { AppRoutes } from './routes';
 
-export default function App() {
-  return (
-    <div>
-      <h2 className='text-3xl font-bold'>Hi there</h2>
-      <Button className='bg-[#504B38]'>Click me</Button>
-    </div>
-  );
-}
+const App = () => {
+  return <AppRoutes />;
+};
+
+export default App;
