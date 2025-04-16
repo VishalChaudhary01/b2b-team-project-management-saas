@@ -4,14 +4,16 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import session from 'cookie-session';
 import { config } from '@config/env.config';
-import { errorHandler } from '@middlewares/errorHandler';
 import { connectDatabase } from '@config/db.config';
+import { errorHandler } from '@middlewares/errorHandler';
+import { isAuthenticated } from '@middlewares/isAuthenticated';
 
 import '@config/passport.config';
 import passport from 'passport';
 import authRoutes from '@routes/auth.route';
 
 const app = express();
+const BASE_PATH = config.BASE_PATH;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +42,7 @@ app.get(`${config.BASE_PATH}`, (_req: Request, res: Response) => {
   });
 });
 
-app.use(`${config.BASE_PATH}/auth`, authRoutes);
+app.use(`${BASE_PATH}/auth`, authRoutes);
 
 app.use(errorHandler);
 

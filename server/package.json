@@ -5,8 +5,9 @@
   "type": "commonjs",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "npm run build && node dist/index.js",
-    "dev": "ts-node-dev --respawn --require tsconfig-paths/register src/index.ts"
+    "start": "npm run build && node -r module-alias/register dist/index.js",
+    "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
+    "seed:role": "ts-node -r tsconfig-paths/register src/seeds/role.seed.ts"
   },
   "_moduleAliases": {
     "@config": "dist/config",
@@ -46,6 +47,7 @@
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.16",
     "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2"
