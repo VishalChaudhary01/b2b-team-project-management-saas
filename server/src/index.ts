@@ -12,6 +12,7 @@ import '@config/passport.config';
 import passport from 'passport';
 import authRoutes from '@routes/auth.route';
 import memberRoutes from '@routes/member.route';
+import projectRoutes from '@routes/project.route';
 import workspaceRoutes from '@routes/workspace.route';
 
 const app = express();
@@ -47,6 +48,7 @@ app.get(`${config.BASE_PATH}`, (_req: Request, res: Response) => {
 app.use(`${BASE_PATH}/auth`, authRoutes);
 app.use(`${BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
 app.use(`${BASE_PATH}/member`, isAuthenticated, memberRoutes);
+app.use(`${BASE_PATH}/project`, isAuthenticated, projectRoutes);
 
 app.use(errorHandler);
 
