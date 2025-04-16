@@ -7,7 +7,11 @@ import { Project } from '@models/Project';
 import { Workspace } from '@models/Workspace';
 import { Roles } from '@enums/role.enum';
 import { TaskStatusEnum } from '@enums/task.enum';
-import { BadRequestException, NotFoundException } from '@utils/appError';
+import {
+  AppError,
+  BadRequestException,
+  NotFoundException,
+} from '@utils/appError';
 
 interface CreateWorkspaceInputs {
   name: string;
@@ -36,27 +40,36 @@ export const createWorkspaceService = async (
     throw new NotFoundException('Owner role not found');
   }
 
-  const workspace = new Workspace({
-    name: name,
-    description: description,
-    owner: user._id,
-  });
-  await workspace.save();
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const workspace = new Workspace({
+      name,
+      description,
+      owner: user._id,
+    });
+    await workspace.save({ session });
 
-  const member = new Member({
-    userId: user._id,
-    workspaceId: workspace._id,
-    role: ownerRole._id,
-    joinedAt: new Date(),
-  });
-  await member.save();
+    const member = new Member({
+      userId: user._id,
+      workspaceId: workspace._id,
+      role: ownerRole._id,
+      joinedAt: new Date(),
+    });
+    await member.save({ session });
 
-  user.currentWorkspace = workspace._id as mongoose.Types.ObjectId;
-  await user.save();
+    user.currentWorkspace = workspace._id as mongoose.Types.ObjectId;
+    await user.save({ session });
 
-  return {
-    workspace,
-  };
+    await session.commitTransaction();
+    session.endSession();
+
+    return { workspace };
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw new AppError('Failed to create workspace, Please try again later.');
+  }
 };
 
 // GET WORKSPACES WHERE USER IS A MEMBER
@@ -109,25 +122,40 @@ export const getWorkspaceMembersService = async (workspaceId: string) => {
 export const getWorkspaceAnalyticsService = async (workspaceId: string) => {
   const currentDate = new Date();
 
-  const totalTasks = await Task.countDocuments({
-    workspace: workspaceId,
-  });
-
-  const overdueTasks = await Task.countDocuments({
-    workspace: workspaceId,
-    dueDate: { $lt: currentDate },
-    status: { $ne: TaskStatusEnum.DONE },
-  });
-
-  const completedTasks = await Task.countDocuments({
-    workspace: workspaceId,
-    status: TaskStatusEnum.DONE,
-  });
+  const result = await Task.aggregate([
+    {
+      $match: {
+        workspace: new mongoose.Types.ObjectId(workspaceId),
+      },
+    },
+    {
+      $facet: {
+        totalTasks: [{ $count: 'count' }],
+        overdueTasks: [
+          {
+            $match: {
+              dueDate: { $lt: currentDate },
+              status: { $ne: TaskStatusEnum.DONE },
+            },
+          },
+          { $count: 'count' },
+        ],
+        completedTasks: [
+          {
+            $match: {
+              status: TaskStatusEnum.DONE,
+            },
+          },
+          { $count: 'count' },
+        ],
+      },
+    },
+  ]);
 
   const analytics = {
-    totalTasks,
-    overdueTasks,
-    completedTasks,
+    totalTasks: result[0].totalTasks[0]?.count || 0,
+    overdueTasks: result[0].overdueTasks[0]?.count || 0,
+    completedTasks: result[0].completedTasks[0]?.count || 0,
   };
 
   return { analytics };
@@ -238,6 +266,6 @@ export const deleteWorkspaceService = async (
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    throw error;
+    throw new AppError('Failed to delete workspace. Please try again later.');
   }
 };
