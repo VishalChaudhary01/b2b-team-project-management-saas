@@ -6,7 +6,7 @@ export const isAuthenticated = (
   _res: Response,
   next: NextFunction
 ) => {
-  if (!req.user || !req.user._id) {
+  if (!req.isAuthenticated?.() || !req.user?._id) {
     throw new UnauthorizedException('Unauthorized. Please log in.');
   }
   next();

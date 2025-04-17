@@ -79,6 +79,13 @@ export const logOut = asyncHandler(async (req: Request, res: Response) => {
     }
   });
 
-  req.session = null;
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Session destroy error:', err);
+      return res
+        .status(HTTPSTATUS.INTERNAL_SERVER_ERROR)
+        .json({ error: 'Failed to destroy session' });
+    }
+  });
   return res.status(HTTPSTATUS.OK).json({ message: 'Logged out successfully' });
 });

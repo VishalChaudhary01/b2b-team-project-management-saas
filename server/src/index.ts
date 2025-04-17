@@ -2,7 +2,8 @@ import 'dotenv/config';
 import 'module-alias/register';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import session from 'cookie-session';
+import session from 'express-session';
+import { RedisStore } from 'connect-redis';
 import { config } from '@config/env.config';
 import { connectDatabase } from '@config/db.config';
 import { errorHandler } from '@middlewares/errorHandler';
@@ -16,6 +17,7 @@ import projectRoutes from '@routes/project.route';
 import taskRoutes from '@routes/task.route';
 import userRoutes from '@routes/user.route';
 import workspaceRoutes from '@routes/workspace.route';
+import { redisClient } from '@utils/redis-client';
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -24,12 +26,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    name: 'session',
-    keys: [config.SESSION_SECRET],
-    maxAge: parseInt(config.SESSION_EXPIRES_IN),
-    secure: config.NODE_ENV === 'production',
-    httpOnly: true,
-    sameSite: 'lax',
+    store: new RedisStore({ client: redisClient }),
+    secret: config.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: parseInt(config.SESSION_EXPIRES_IN) * 1000,
+      secure: config.NODE_ENV === 'production',
+      httpOnly: true,
+      sameSite: 'lax',
+    },
   })
 );
 app.use(passport.initialize());
