@@ -53,23 +53,38 @@ export interface ChangeWorkspaceMemberRoleRequest {
 }
 
 // Response Types
-export type CreateWorkspaceResponse = BaseResponse<{ workspace: Workspace }>;
+
+export type CreateWorkspaceResponse = BaseResponse & {
+  workspace: Workspace;
+};
+
 export type EditWorkspaceResponse = CreateWorkspaceResponse;
-export type AllWorkspaceResponse = BaseResponse<{ workspaces: Workspace[] }>;
-export type WorkspaceByIdResponse = BaseResponse<{
+
+export type AllWorkspaceResponse = BaseResponse & {
+  workspaces: Workspace[];
+};
+
+export type WorkspaceByIdResponse = BaseResponse & {
   workspace: WorkspaceWithMembers;
-}>;
-export type ChangeWorkspaceMemberRoleResponse = BaseResponse<{
+};
+
+export type ChangeWorkspaceMemberRoleResponse = BaseResponse & {
   member: Member;
-}>;
-export type DeleteWorkspaceResponse = BaseResponse<{
+};
+
+export type DeleteWorkspaceResponse = BaseResponse & {
   currentWorkspace: string;
-}>;
-export type InvitedUserJoinWorkspaceResponse = BaseResponse<{
+};
+
+export type InvitedUserJoinWorkspaceResponse = BaseResponse & {
   workspaceId: string;
-}>;
-export type AllMembersInWorkspaceResponse = BaseResponse<{
+};
+
+export type AllMembersInWorkspaceResponse = BaseResponse & {
   members: Member[];
   roles: Role[];
-}>;
-export type AnalyticsResponse = BaseResponse<{ analytics: WorkspaceAnalytics }>;
+};
+
+export type AnalyticsResponse = BaseResponse & {
+  analytics: WorkspaceAnalytics;
+};

@@ -25,10 +25,10 @@ export type RegisterRequest = RegisterInput;
 export type LoginRequest = LoginInput;
 
 // Response Type
-export type LoginResponse = BaseResponse<{
+export type LoginResponse = BaseResponse & {
   user: Pick<User, '_id' | 'currentWorkspace'>;
-}>;
+};
 
-export type CurrentUserResponse = BaseResponse<{
+export type CurrentUserResponse = BaseResponse & {
   user: User;
-}>;
+};

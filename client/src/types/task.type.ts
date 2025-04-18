@@ -61,7 +61,9 @@ export interface DeleteTaskRequest {
 }
 
 // Response Types
-export type CreateTaskResponse = BaseResponse<{ task: Task }>;
+export type CreateTaskResponse = BaseResponse & {
+  task: Task;
+};
 export type UpdateTaskResponse = CreateTaskResponse;
-export type DeleteTaskResponse = BaseResponse<void>;
-export type AllTaskResponse = PaginatedResponse<Task[]>;
+export type DeleteTaskResponse = BaseResponse;
+export type AllTaskResponse = PaginatedResponse<Task[], 'tasks'>;

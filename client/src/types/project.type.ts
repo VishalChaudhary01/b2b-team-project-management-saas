@@ -37,8 +37,8 @@ export interface ProjectByIdRequest {
 }
 
 // Response Types
-export type CreateProjectResponse = BaseResponse<{ project: Project }>;
+export type CreateProjectResponse = BaseResponse & { project: Project };
 export type EditProjectResponse = CreateProjectResponse;
-export type DeleteProjectResponse = BaseResponse<void>;
-export type AllProjectResponse = PaginatedResponse<Project[]>;
+export type DeleteProjectResponse = BaseResponse;
+export type AllProjectResponse = PaginatedResponse<Project[], 'projects'>;
 export type ProjectByIdResponse = CreateProjectResponse;

@@ -6,14 +6,15 @@ export interface BaseEntity {
   updatedAt?: string | Date;
 }
 
-export interface BaseResponse<T> {
+export interface BaseResponse {
   message: string;
-  data: T;
 }
 
-export interface PaginatedResponse<T> extends BaseResponse<T> {
+export type PaginatedResponse<T, K extends string = 'data'> = BaseResponse & {
   pagination: Pagination;
-}
+} & {
+  [P in K]: T;
+};
 
 export interface Pagination {
   totalCount: number;
