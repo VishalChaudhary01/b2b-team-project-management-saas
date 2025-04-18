@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import passport from 'passport';
 import { config } from '@config/env.config';
 import { login, logOut, registerUser } from '@controllers/auth.controller';
@@ -22,7 +22,15 @@ authRouter.get(
   '/google/callback',
   passport.authenticate('google', {
     failureRedirect: failureURL,
-  })
+    session: true,
+  }),
+  (req: Request, res: Response) => {
+    res.redirect(
+      `${
+        config.FRONTEND_ORIGIN
+      }/workspace/${req.user?.currentWorkspace?.toString()}`
+    );
+  }
 );
 
 export default authRouter;
