@@ -1,22 +1,24 @@
+import { createProjectSchema } from '@/validators/project.validator';
 import {
   BaseEntity,
   BaseResponse,
   BaseUser,
   PaginatedResponse,
+  ZodInfer,
 } from './common.type';
 
-export interface Project extends BaseEntity {
-  name: string;
-  emoji: string;
-  description: string;
-  workspace: string;
-  createdBy: BaseUser;
-}
+export type CreateProjectInput = ZodInfer<typeof createProjectSchema>;
+
+export type Project = BaseEntity &
+  CreateProjectInput & {
+    workspace: string;
+    createdBy: BaseUser;
+  };
 
 // Request Types
 export interface CreateProjectRequest {
   workspaceId: string;
-  data: Pick<Project, 'emoji' | 'name' | 'description'>;
+  data: CreateProjectInput;
 }
 
 export interface EditProjectRequest extends CreateProjectRequest {

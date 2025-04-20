@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { loginMutationFn } from '@/lib/api';
 import { LoginInput } from '@/types/user.type';
@@ -15,9 +15,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { CustomCard } from '@/components/custom/CustomCard';
-import { PasswordInput } from '@/components/custom/PasswordInput';
-import { AuthButtons } from '@/components/custom/AuthButtons';
+import { CardLayout } from '@/components/common/CardLayout';
+import { PasswordInput } from '@/components/auth/PasswordInput';
+import { AuthButtons } from '@/components/auth/AuthButtons';
 
 export const SignInPage = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ export const SignInPage = () => {
 
   return (
     <div className='flex justify-center py-8 mx-auto'>
-      <CustomCard
+      <CardLayout
         header='SignIn'
         description='Welcome back, please enter your details to login.'
         footer={
@@ -90,10 +90,10 @@ export const SignInPage = () => {
               label='Password'
               placeholder='Enter your password'
             />
-            <AuthButtons label='Sign In' disabled={isPending} />
+            <AuthButtons label='Sign In' isLoading={isPending} />
           </form>
         </Form>
-      </CustomCard>
+      </CardLayout>
     </div>
   );
 };

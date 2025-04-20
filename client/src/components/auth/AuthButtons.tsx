@@ -2,21 +2,22 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '../ui/separator';
 import { baseURL } from '@/lib/axios-client';
 import googleIcon from '@/assets/google-icon.svg';
+import { Loader } from 'lucide-react';
 
 interface AuthButtonsProps {
   label: string;
-  disabled: boolean;
+  isLoading: boolean;
 }
 
-export const AuthButtons = ({ label, disabled }: AuthButtonsProps) => {
+export const AuthButtons = ({ label, isLoading }: AuthButtonsProps) => {
   const handleClick = () => {
     window.location.href = `${baseURL}/auth/google`;
   };
 
   return (
     <div className='flex flex-col gap-2'>
-      <Button type='submit' disabled={disabled} className='w-full'>
-        {label}
+      <Button type='submit' disabled={isLoading} className='w-full'>
+        {isLoading ? <Loader className='w-4 h-4 animate-spin' /> : label}
       </Button>
       <div className='relative'>
         <div className='absolute inset-0 flex items-center'>

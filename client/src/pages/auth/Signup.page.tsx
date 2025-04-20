@@ -1,6 +1,14 @@
-import { AuthButtons } from '@/components/custom/AuthButtons';
-import { CustomCard } from '@/components/custom/CustomCard';
-import { PasswordInput } from '@/components/custom/PasswordInput';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { registerMutationFn } from '@/lib/api';
+import { RegisterInput } from '@/types/user.type';
+import { registerSchema } from '@/validators/auth.validator';
+import { CardLayout } from '@/components/common/CardLayout';
+import { AuthButtons } from '@/components/auth/AuthButtons';
+import { PasswordInput } from '@/components/auth/PasswordInput';
 import {
   Form,
   FormControl,
@@ -10,14 +18,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { registerMutationFn } from '@/lib/api';
-import { RegisterInput } from '@/types/user.type';
-import { registerSchema } from '@/validators/auth.validator';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
 
 export const SignUpPage = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export const SignUpPage = () => {
 
   return (
     <div className='flex justify-center py-8 mx-auto'>
-      <CustomCard
+      <CardLayout
         header='SignUp'
         description='Welcome, please enter your details to Create an account.'
         footer={
@@ -104,10 +104,10 @@ export const SignUpPage = () => {
               label='Confirm Password'
               placeholder='Confirm your password'
             />
-            <AuthButtons label='Sign Up' disabled={isPending} />
+            <AuthButtons label='Sign Up' isLoading={isPending} />
           </form>
         </Form>
-      </CustomCard>
+      </CardLayout>
     </div>
   );
 };
