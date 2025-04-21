@@ -1,7 +1,7 @@
 import { BaseEntity, BaseResponse, BaseUser, ZodInfer } from './common.type';
 import {
   createWorkspaceSchema,
-  updateWorkspaceSchema,
+  editWorkspaceSchema,
 } from '@/validators/workspace.validator';
 import { Role } from './user.type';
 
@@ -33,7 +33,7 @@ export interface WorkspaceAnalytics {
 }
 
 export type CreateWorkspaceInput = ZodInfer<typeof createWorkspaceSchema>;
-export type UpdateWorkspaceInput = ZodInfer<typeof updateWorkspaceSchema>;
+export type EditWorkspaceInput = ZodInfer<typeof editWorkspaceSchema>;
 
 // Request Types
 
@@ -41,7 +41,7 @@ export type CreateWorkspaceRequest = CreateWorkspaceInput;
 
 export interface EditWorkspaceRequest {
   workspaceId: string;
-  data: UpdateWorkspaceInput;
+  data: EditWorkspaceInput;
 }
 
 export interface ChangeWorkspaceMemberRoleRequest {

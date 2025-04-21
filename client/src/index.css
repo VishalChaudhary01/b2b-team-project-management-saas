@@ -43,11 +43,11 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.92 0.0109 95.17);
+  --background: oklch(0.93 0.0096 93.57);
   --foreground: oklch(0.29 0.0193 98.88);
   --card: oklch(0.86 0.0182 92.7);
   --card-foreground: oklch(0.29 0.0193 98.88);
-  --popover: oklch(0.92 0.0109 95.17);
+  --popover: oklch(0.93 0.0096 93.57);
   --popover-foreground: oklch(0.29 0.0193 98.88);
   --primary: oklch(0.37 0.0266 95.69);
   --primary-foreground: oklch(0.95 0.0081 98.88);
@@ -72,7 +72,7 @@
   --sidebar-primary-foreground: oklch(0.86 0.0182 92.7);
   --sidebar-accent: oklch(0.86 0.0182 92.7);
   --sidebar-accent-foreground: oklch(0.37 0.0266 95.69);
-  --sidebar-border: oklch(0.86 0.0182 92.7);
+  --sidebar-border: oklch(0.77 0.0182 92.7);
   --sidebar-ring: oklch(0.81 0.0279 95.41);
 }
 
@@ -116,5 +116,8 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  button {
+    @apply cursor-pointer;
   }
 }

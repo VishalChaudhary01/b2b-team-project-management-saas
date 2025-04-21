@@ -10,7 +10,7 @@ import {
   Loader,
   LogOut,
 } from 'lucide-react';
-import useAuth from '@/hooks/api/use-auth';
+import { useAuth } from '@/hooks/api';
 import useWorkspaceId from '@/hooks/use-workspace-id';
 import {
   DropdownMenu,
@@ -36,8 +36,8 @@ import { Separator } from '@/components/ui/separator';
 import { NavProjects } from '@/components/app-sidebar/NavProjects';
 import { WorkspaceSwitcher } from '@/components/app-sidebar/WorkspaceSwitcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { DialogLayout } from '@/components/common/DialogLayout';
 import { NavMain } from './NavMain';
-import { DialogLayout } from '../common/DialogLayout';
 
 export const AppSidebar = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export const AppSidebar = () => {
 
   return (
     <>
-      <Sidebar className=''>
+      <Sidebar>
         <SidebarHeader>
           <Link
             to={`/workspace/${workspaceId}`}
@@ -77,7 +77,7 @@ export const AppSidebar = () => {
             <Button size='sm'>
               <AudioWaveform width={16} height={16} />
             </Button>
-            <span className='font-medium text-md'>Team Sync.</span>
+            <span className='font-semibold text-base'>CrewSpace</span>
           </Link>
         </SidebarHeader>
         <SidebarContent className='flex flex-col gap-0 h-[calc(100vh-8rem)] overflow-y-hidden'>
@@ -95,7 +95,7 @@ export const AppSidebar = () => {
           <SidebarMenu>
             <SidebarMenuItem>
               {isLoading ? (
-                <Loader className='w-8 h-8 animate-spin' />
+                <Loader className='w-8 h-8 animate-spin place-self-center flex' />
               ) : (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -161,7 +161,11 @@ export const AppSidebar = () => {
             Cancel
           </Button>
           <Button disabled={isPending} type='button' onClick={handleLogout}>
-            {isPending ? <Loader className='animate-spin' /> : 'Sign out'}
+            {isPending ? (
+              <Loader className='w-4 h-4 animate-spin' />
+            ) : (
+              'Sign out'
+            )}
           </Button>
         </div>
       </DialogLayout>

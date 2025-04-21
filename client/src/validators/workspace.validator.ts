@@ -6,4 +6,4 @@ export const createWorkspaceSchema = z.object({
   description: descriptionSchema,
 });
 
-export const updateWorkspaceSchema = createWorkspaceSchema.partial();
+export const editWorkspaceSchema = createWorkspaceSchema.partial();

@@ -5,10 +5,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Permissions } from '@/constants';
 import { Pagination } from '@/types/common.type';
 import { deleteProjectMutationFn } from '@/lib/api';
+import { useConfirmDialog } from '@/hooks/dialog';
 import useWorkspaceId from '@/hooks/use-workspace-id';
-import useConfirmDialog from '@/hooks/use-confirm-dialog';
-import useCreateProjectDialog from '@/hooks/use-create-project-dialog';
-import useGetProjectsInWorkspaceQuery from '@/hooks/api/use-get-projects';
+import { useCreateProjectDialog } from '@/hooks/dialog';
+import { useGetProjectsInWorkspace } from '@/hooks/api';
 import {
   ArrowRight,
   Folder,
@@ -61,12 +61,11 @@ export function NavProjects() {
     mutationFn: deleteProjectMutationFn,
   });
 
-  const { data, isPending, isFetching, isError } =
-    useGetProjectsInWorkspaceQuery({
-      workspaceId,
-      pageSize,
-      pageNumber,
-    });
+  const { data, isPending, isFetching, isError } = useGetProjectsInWorkspace({
+    workspaceId,
+    pageSize,
+    pageNumber,
+  });
 
   const projects = data?.projects || [];
   const pagination = data?.pagination || ({} as Pagination);
@@ -117,7 +116,7 @@ export function NavProjects() {
           <SidebarMenu className='px-2'>
             {isError ? <div>Error occured</div> : null}
             {isPending ? (
-              <Loader className='w-5 h-5 animate-spin place-self-center' />
+              <Loader className='w-8 h-8 animate-spin place-self-center flex' />
             ) : null}
 
             {!isPending && projects?.length === 0 ? (
@@ -214,10 +213,8 @@ export function NavProjects() {
       <DialogLayout
         open={open}
         onClose={onCloseDialog}
-        header='Delete Project'
-        description={`Are you sure you want to delete ${
-          content?.name || 'this item'
-        }? This action cannot be undone.`}
+        header={`Delete ${content?.name} Project`}
+        description={`Are you sure you want to delete? This action cannot be undone.`}
       >
         <div className='w-full flex justify-center gap-8'>
           <Button
@@ -228,7 +225,7 @@ export function NavProjects() {
             Cancel
           </Button>
           <Button disabled={isLoading} onClick={handleDelete}>
-            {isLoading ? <Loader className='animate-spin' /> : 'Delete'}
+            {isLoading ? <Loader className='w-4 h-4 animate-spin' /> : 'Delete'}
           </Button>
         </div>
       </DialogLayout>

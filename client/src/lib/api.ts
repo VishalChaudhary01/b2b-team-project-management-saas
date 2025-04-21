@@ -195,11 +195,10 @@ export const deleteProjectMutationFn = async ({
 /************ TASKS API ************/
 export const createTaskMutationFn = async ({
   workspaceId,
-  projectId,
   data,
 }: CreateTaskRequest): Promise<CreateTaskResponse> => {
   const response = await API.post(
-    `/task/project/${projectId}/workspace/${workspaceId}/create`,
+    `/task/project/${data.projectId}/workspace/${workspaceId}/create`,
     data
   );
   return response.data;
@@ -230,6 +229,7 @@ export const getAllTasksQueryFn = async ({
 
   const url = queryParams.toString() ? `${baseUrl}?${queryParams}` : baseUrl;
   const response = await API.get(url);
+  console.log('All Tasks:: ', response);
   return response.data;
 };
 

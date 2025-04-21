@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PermissionType } from '@/constants';
-import useAuth from '@/hooks/api/use-auth';
+import { useAuth } from '@/hooks/api';
 import usePermissions from '@/hooks/use-permissions';
 import useWorkspaceId from '@/hooks/use-workspace-id';
-import useGetWorkspaceQuery from '@/hooks/api/use-get-workspace';
+import { useGetWorkspace } from '@/hooks/api';
 import { User } from '@/types/user.type';
 import { Workspace } from '@/types/workspace.type';
 
@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     isLoading: workspaceLoading,
     error: workspaceError,
     refetch: refetchWorkspace,
-  } = useGetWorkspaceQuery(workspaceId);
+  } = useGetWorkspace(workspaceId);
 
   const workspace = workspaceData?.workspace;
 

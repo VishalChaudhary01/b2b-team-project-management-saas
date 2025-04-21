@@ -8,7 +8,7 @@ import useWorkspaceId from '@/hooks/use-workspace-id';
 import { CreateProjectInput } from '@/types/project.type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createProjectSchema } from '@/validators/project.validator';
-import useCreateProjectDialog from '@/hooks/use-create-project-dialog';
+import { useCreateProjectDialog } from '@/hooks/dialog';
 import {
   Form,
   FormControl,
@@ -75,7 +75,7 @@ export const CreateProjectDialog = () => {
           form='create-project-form'
           className='w-full'
         >
-          {isPending && <Loader className='animate-spin' />}
+          {isPending && <Loader className='w-4 h-4 animate-spin' />}
           Create
         </Button>
       }

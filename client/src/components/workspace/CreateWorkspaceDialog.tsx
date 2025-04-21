@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createWorkspaceMutationFn } from '@/lib/api';
 import { CreateWorkspaceInput } from '@/types/workspace.type';
 import { createWorkspaceSchema } from '@/validators/workspace.validator';
-import useCreateWorkspaceDialog from '@/hooks/use-create-workspace-dialog';
+import { useCreateWorkspaceDialog } from '@/hooks/dialog';
 import {
   Form,
   FormControl,
@@ -74,7 +74,11 @@ export const CreateWorkspaceDialog = () => {
           form='create-workspace-form'
           className='w-full'
         >
-          {isPending ? <Loader className='animate-spin' /> : 'Create Workspace'}
+          {isPending ? (
+            <Loader className='w-4 h-4 animate-spin' />
+          ) : (
+            'Create Workspace'
+          )}
         </Button>
       }
     >

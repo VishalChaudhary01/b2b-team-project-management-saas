@@ -1,4 +1,7 @@
-import { createProjectSchema } from '@/validators/project.validator';
+import {
+  createProjectSchema,
+  editProjectSchema,
+} from '@/validators/project.validator';
 import {
   BaseEntity,
   BaseResponse,
@@ -8,6 +11,7 @@ import {
 } from './common.type';
 
 export type CreateProjectInput = ZodInfer<typeof createProjectSchema>;
+export type EditProjectInput = ZodInfer<typeof editProjectSchema>;
 
 export type Project = BaseEntity &
   CreateProjectInput & {
@@ -21,8 +25,10 @@ export interface CreateProjectRequest {
   data: CreateProjectInput;
 }
 
-export interface EditProjectRequest extends CreateProjectRequest {
+export interface EditProjectRequest {
+  workspaceId: string;
   projectId: string;
+  data: EditProjectInput;
 }
 
 export interface AllProjectRequest {

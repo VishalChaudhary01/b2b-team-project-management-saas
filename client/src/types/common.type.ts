@@ -28,6 +28,7 @@ export interface Pagination {
 export interface BaseUser {
   _id: string;
   name: string;
+  email: string;
   profilePicture: string | null;
 }
 

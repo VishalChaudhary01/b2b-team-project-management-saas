@@ -17,8 +17,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import useWorkspaceId from '@/hooks/use-workspace-id';
-import useCreateWorkspaceDialog from '@/hooks/use-create-workspace-dialog';
-import useGetUserWorkspaces from '@/hooks/api/use-get-user-workspaces';
+import { useCreateWorkspaceDialog } from '@/hooks/dialog';
+import { useGetUserWorkspaces } from '@/hooks/api';
 
 type ActiveWorkspace = {
   _id: string;
@@ -95,7 +95,9 @@ export const WorkspaceSwitcher = () => {
               <DropdownMenuLabel className='text-sx text-muted-foreground'>
                 Workspaces
               </DropdownMenuLabel>
-              {isPending ? <Loader className='w-4 h-4 animate-spin' /> : null}
+              {isPending ? (
+                <Loader className='w-4 h-4 animate-spin place-self-center flex' />
+              ) : null}
               {workspaces?.map((workspace) => (
                 <DropdownMenuItem
                   key={workspace._id}

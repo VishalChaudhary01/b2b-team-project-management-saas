@@ -3,6 +3,7 @@ import {
   assignedToSchema,
   descriptionSchema,
   dueDateSchema,
+  idSchema,
   prioritySchema,
   statusSchema,
   titleSchema,
@@ -15,6 +16,7 @@ export const createTaskSchema = z.object({
   status: statusSchema,
   assignedTo: assignedToSchema,
   dueDate: dueDateSchema,
+  projectId: idSchema,
 });
 
 export const updateTaskSchema = createTaskSchema.partial();

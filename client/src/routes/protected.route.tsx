@@ -1,6 +1,6 @@
-import useAuth from '@/hooks/api/use-auth';
+import { useAuth } from '@/hooks/api';
 import { Navigate, Outlet } from 'react-router-dom';
-import { DashboardSkeleton } from '@/components/skeletons/dashboard-skeleton';
+import { DashboardSkeleton } from '@/components/skeletons/DashboardSkeleton';
 
 export const ProtectedRoute = () => {
   const { data: authData, isLoading } = useAuth();

@@ -59,4 +59,6 @@ export const dueDateSchema = z
     message: 'Due date must be a valid date string (e.g., YYYY-MM-DD)',
   });
 
+export const idSchema = z.string().trim().min(1, 'Id is Required');
+
 export const emojiSchema = z.string().trim().optional();

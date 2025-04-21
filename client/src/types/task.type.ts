@@ -33,7 +33,6 @@ export type UpdateTaskInput = ZodInfer<typeof updateTaskSchema>;
 // Request Types
 export interface CreateTaskRequest {
   workspaceId: string;
-  projectId: string;
   data: CreateTaskInput;
 }
 

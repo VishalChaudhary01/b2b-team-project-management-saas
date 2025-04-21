@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../ui/dialog';
+import { ScrollArea } from '../ui/scroll-area';
 
 interface DialogLayoutProps {
   open: boolean;
@@ -27,14 +28,14 @@ export const DialogLayout: React.FC<DialogLayoutProps> = ({
 }) => {
   return (
     <Dialog modal={true} open={open} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className='max-h-[90vh] overflow-hidden'>
         <DialogHeader>
           <DialogTitle className='text-xl md:text-2xl font-bold'>
             {header}
           </DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        {children}
+        <ScrollArea className='pr-4 max-h-[60vh]'>{children}</ScrollArea>
         <DialogFooter>{footer}</DialogFooter>
       </DialogContent>
     </Dialog>

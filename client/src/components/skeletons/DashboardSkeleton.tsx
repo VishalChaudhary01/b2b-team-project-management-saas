@@ -1,17 +1,8 @@
-import { Loader } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export function DashboardSkeleton() {
   return (
     <div className='p-4'>
-      {/* Loader on top */}
-      <div className='absolute inset-0 z-50 flex items-start pt-10 justify-center bg-[rgba(255,255,255,.01)]'>
-        <div className='flex items-center space-x-2'>
-          <Loader size='25px' className='animate-spin' />
-          <span className='text-sm font-medium'>TeamSync...</span>
-        </div>
-      </div>
-
       {/* Main layout */}
       <div className='flex space-x-4'>
         {/* Sidebar */}
