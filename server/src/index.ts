@@ -18,6 +18,7 @@ import taskRoutes from '@routes/task.route';
 import userRoutes from '@routes/user.route';
 import workspaceRoutes from '@routes/workspace.route';
 import { redisClient } from '@utils/redis-client';
+import { seedRoles } from './seeds/role.seed';
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -47,7 +48,7 @@ app.use(
   })
 );
 
-app.get(`${config.BASE_PATH}`, (_req: Request, res: Response) => {
+app.get(`/`, (_req: Request, res: Response) => {
   res.status(200).json({
     message: 'Healthy server',
   });
@@ -66,5 +67,11 @@ app.listen(config.PORT, async () => {
   console.log(
     `🚀 Server running at http://localhost:${config.PORT}${config.BASE_PATH} (env: ${config.NODE_ENV})`
   );
-  await connectDatabase();
+  try {
+    await connectDatabase();
+    await seedRoles();
+  } catch (err) {
+    console.error('❌ Failed to start server:', err);
+    process.exit(1);
+  }
 });
