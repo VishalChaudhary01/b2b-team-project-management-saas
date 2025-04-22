@@ -50,7 +50,7 @@ export const CreateProjectDialog = () => {
       onSuccess: (data) => {
         const project = data.project;
         queryClient.invalidateQueries({
-          queryKey: ['allProjects', workspaceId],
+          queryKey: ['all-projects', workspaceId],
         });
         toast.success('Project created successfully');
         navigate(`/workspace/${workspaceId}/project/${project._id}`);

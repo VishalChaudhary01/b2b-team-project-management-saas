@@ -25,7 +25,6 @@ export const TasksPage = () => {
         </PermissionsGuard>
       </div>
       <TaskTable />
-      {/* Task Table */}
     </div>
   );
 };

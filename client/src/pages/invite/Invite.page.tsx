@@ -31,7 +31,7 @@ export const InvitePage = () => {
     mutate(inviteCode, {
       onSuccess: (data) => {
         queryClient.resetQueries({
-          queryKey: ['userWorkspaces'],
+          queryKey: ['user-workspaces'],
         });
         navigate(`/workspace/${data.workspaceId}`);
       },

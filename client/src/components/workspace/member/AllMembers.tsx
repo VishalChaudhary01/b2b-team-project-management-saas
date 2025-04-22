@@ -73,7 +73,10 @@ export const AllMembers = () => {
         const initials = getAvatarFallbackText(name);
         const avatarColor = getAvatarColor(name);
         return (
-          <div className='flex items-center justify-between space-x-4'>
+          <div
+            key={member._id}
+            className='flex items-center justify-between space-x-4'
+          >
             <div className='flex items-center space-x-4'>
               <Avatar className='h-8 w-8'>
                 <AvatarImage

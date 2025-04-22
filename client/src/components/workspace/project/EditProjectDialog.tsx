@@ -52,7 +52,10 @@ export const EditProjectDialog = ({ project }: { project: Project }) => {
       onSuccess: (data) => {
         const project = data.project;
         queryClient.invalidateQueries({
-          queryKey: ['singleProject', project._id],
+          queryKey: ['project', project._id],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['all-projects', workspaceId],
         });
         toast.success('Project updated successfully');
         navigate(`/workspace/${workspaceId}/project/${project._id}`);

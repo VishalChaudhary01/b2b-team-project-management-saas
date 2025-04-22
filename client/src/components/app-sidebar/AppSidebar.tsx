@@ -50,7 +50,7 @@ export const AppSidebar = () => {
     mutationFn: logoutMutationFn,
     onSuccess: () => {
       queryClient.resetQueries({
-        queryKey: ['authUser'],
+        queryKey: ['auth-user'],
       });
       navigate('/');
       setIsOpen(false);

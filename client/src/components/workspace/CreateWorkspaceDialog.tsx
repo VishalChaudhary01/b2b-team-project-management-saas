@@ -42,7 +42,7 @@ export const CreateWorkspaceDialog = () => {
     mutate(values, {
       onSuccess: (data) => {
         queryClient.invalidateQueries({
-          queryKey: ['userWorkspaces'],
+          queryKey: ['user-workspaces'],
         });
         toast.success('Workspace created successfully');
         setTimeout(() => {

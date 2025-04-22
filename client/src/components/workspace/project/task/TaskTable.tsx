@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import useWorkspaceId from '@/hooks/use-workspace-id';
 import { X } from 'lucide-react';
 import { Task } from '@/types/task.type';
-import { getAllTasksQueryFn } from '@/lib/api';
 import { useTaskTableFilter } from '@/hooks/use-task-table-filters';
 import { getMemberOptions, getProjectOptions } from '@/hoc/options';
-import { useGetProjectsInWorkspace, useGetWorkspaceMembers } from '@/hooks/api';
+import {
+  useGetAllTasks,
+  useGetProjectsInWorkspace,
+  useGetWorkspaceMembers,
+} from '@/hooks/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { getColumns } from './table/Columns';
@@ -15,7 +17,7 @@ import { DataTable } from './table/DataTable';
 import { priorities, statuses } from './table/Data';
 import { DataTableFacetedFilter } from './table/TableFactedFilter';
 
-type Filters = ReturnType<typeof useTaskTableFilter>[0];
+export type Filters = ReturnType<typeof useTaskTableFilter>[0];
 type SetFilters = ReturnType<typeof useTaskTableFilter>[1];
 
 interface DataTableFilterToolbarProps {
@@ -36,27 +38,11 @@ export const TaskTable = () => {
   const workspaceId = useWorkspaceId();
   const [filters, setFilters] = useTaskTableFilter();
 
-  const { data, isLoading } = useQuery({
-    queryKey: [
-      'all-task',
-      workspaceId,
-      pageSize,
-      pageNumber,
-      filters,
-      projectId,
-    ],
-    queryFn: () =>
-      getAllTasksQueryFn({
-        workspaceId,
-        keyword: filters.keyword,
-        priority: filters.priority,
-        status: filters.status,
-        projectId: projectId || filters.projectId,
-        assignedTo: filters.assigneeId,
-        pageNumber,
-        pageSize,
-      }),
-    staleTime: 0,
+  const { data, isLoading } = useGetAllTasks({
+    workspaceId,
+    projectId,
+    pageSize,
+    pageNumber,
   });
 
   const tasks: Task[] = data?.tasks || [];

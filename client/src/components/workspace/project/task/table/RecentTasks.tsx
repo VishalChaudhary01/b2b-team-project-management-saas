@@ -1,8 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { Loader } from 'lucide-react';
 import { Task } from '@/types/task.type';
-import { getAllTasksQueryFn } from '@/lib/api';
 import useWorkspaceId from '@/hooks/use-workspace-id';
 import { TaskPriorityEnum, TaskStatusEnum } from '@/constants';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -12,19 +10,12 @@ import {
   getAvatarFallbackText,
   transformStatusEnum,
 } from '@/lib/utils';
+import { useGetAllTasks } from '@/hooks/api';
 
 export const RecentTasks = () => {
   const workspaceId = useWorkspaceId();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['all-tasks', workspaceId],
-    queryFn: () =>
-      getAllTasksQueryFn({
-        workspaceId,
-      }),
-    staleTime: 0,
-    enabled: !!workspaceId,
-  });
+  const { data, isLoading } = useGetAllTasks({ workspaceId });
 
   const tasks: Task[] = data?.tasks || [];
 

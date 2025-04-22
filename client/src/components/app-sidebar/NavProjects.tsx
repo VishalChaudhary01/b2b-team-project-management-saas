@@ -83,7 +83,7 @@ export function NavProjects() {
       {
         onSuccess: (data) => {
           queryClient.invalidateQueries({
-            queryKey: ['allProjects', workspaceId],
+            queryKey: ['all-projects', workspaceId],
           });
           toast.success(data.message || 'Project deleted successfully');
 

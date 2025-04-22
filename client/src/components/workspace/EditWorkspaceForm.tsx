@@ -60,7 +60,7 @@ export default function EditWorkspaceForm() {
           queryKey: ['workspace'],
         });
         queryClient.invalidateQueries({
-          queryKey: ['userWorkspaces'],
+          queryKey: ['user-workspaces'],
         });
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,9 +1,8 @@
 import { Edit, Loader, Plus } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import useWorkspaceId from '@/hooks/use-workspace-id';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useGetProjectById } from '@/hooks/api';
 import { useCreateTaskDialog, useEditProjectDialog } from '@/hooks/dialog';
-import { getProjectByIdQueryFn } from '@/lib/api';
 import { Permissions } from '@/constants';
 import { EditProjectDialog } from './EditProjectDialog';
 import { Button } from '@/components/ui/button';
@@ -16,17 +15,10 @@ export const ProjectHeader = () => {
   const { onOpen } = useEditProjectDialog();
   const { onOpen: onOpenCreateTask } = useCreateTaskDialog();
 
-  const { data, isPending, isError } = useQuery({
-    queryKey: ['singleProject', projectId],
-    queryFn: () =>
-      getProjectByIdQueryFn({
-        workspaceId,
-        projectId,
-      }),
-    staleTime: Infinity,
-    enabled: !!projectId,
-    placeholderData: keepPreviousData,
-  });
+  const { data, isPending, isError } = useGetProjectById(
+    workspaceId,
+    projectId
+  );
 
   const project = data?.project;
 
