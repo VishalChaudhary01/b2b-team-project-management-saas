@@ -48,7 +48,8 @@ export const RecentTasks = () => {
                 </span>
                 <p className='text-md font-semibold truncate'>{task.title}</p>
                 <span className='text-sm text-muted-foreground'>
-                  Due: {task.dueDate ? format(task.dueDate, 'PPP') : null}
+                  Due:{' '}
+                  {task.dueDate ? format(new Date(task.dueDate), 'PPP') : null}
                 </span>
               </div>
 

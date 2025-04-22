@@ -51,7 +51,11 @@ export const RecentMembers = () => {
               {/* Joined Date */}
               <div className='ml-auto text-sm text-muted-foreground'>
                 <p>Joined</p>
-                <p>{member.joinedAt ? format(member.joinedAt, 'PPP') : null}</p>
+                <p>
+                  {member.joinedAt
+                    ? format(new Date(member.joinedAt), 'PPP')
+                    : null}
+                </p>
               </div>
             </li>
           );
