@@ -14,6 +14,10 @@ export const envConfig = () => ({
   GOOGLE_CLIENT_ID: getEnv('GOOGLE_CLIENT_ID'),
   GOOGLE_CLIENT_SECRET: getEnv('GOOGLE_CLIENT_SECRET'),
   GOOGLE_CALLBACK_URL: getEnv('GOOGLE_CALLBACK_URL'),
+  REDIS_USERNAME: getEnv('REDIS_USERNAME'),
+  REDIS_PASSWORD: getEnv('REDIS_PASSWORD'),
+  REDIS_HOST: getEnv('REDIS_HOST'),
+  REDIS_PORT: getEnv('REDIS_PORT'),
 });
 
 export const config: EnvConfig = envConfig();
