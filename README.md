@@ -55,7 +55,7 @@
 - **MongoDB** - NoSQL database
 - **Mongoose** - MongoDB object modeling
 - **Google OAuth** - Authentication integration
-- **JSON Web Tokens** - Secure authentication
+- **Redis to store express-session** - Secure authentication
 
 ## 📋 Installation & Setup (without Docker)
 
